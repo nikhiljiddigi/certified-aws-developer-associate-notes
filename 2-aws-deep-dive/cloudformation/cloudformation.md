@@ -212,7 +212,7 @@ CloudFormation.
     - Ability to see in the log what happened and error messages
     
 #### ChangeSets
-- When you update a stack,you need to know what changesbefore it happends for greater confidence.
+- When you update a stack, you need to know what changes before it happens for greater confidence.
 - ChangeSets won't say if the update will be successful
 
 #### NestedSets
