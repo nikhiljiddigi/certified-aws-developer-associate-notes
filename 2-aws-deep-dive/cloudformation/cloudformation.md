@@ -158,12 +158,13 @@ CloudFormation.
     - AWS Region
     - Any parameter value
 - Each condition can reference another condition, parameter value or mapping
+- Example: `!Equals [!Ref EnvType, Prod]`
 
 ##### Defining Conditions
 - The logical ID is for you to choose. It’s how you name condition
 - The intrinsic function (logical) can be any of the following:
     - `Fn::And`
-    `Fn::Equals`
+    - `Fn::Equals`
     - `Fn::If`
     - `Fn::Not`
     - `Fn::Or`
@@ -187,6 +188,8 @@ CloudFormation.
         - Use the `Fn::ImportValue` function
 - `Fn::Join`
     - Join values with a delimiter
+    - `!Join [delimeter , [comma-seperated list of values ] ]`
+    - Example:  !Join [":" , [a,b,c] ]  => a:b:c
 - `Fn::Sub`
     - `Fn::Sub`, or `!Sub` as a shorthand, is used to substitute variables from a text. It’s a very handy function that will allow you to fully customize your templates.
     - For example, you can combine `Fn::Sub` with References or AWS Pseudo variables
@@ -207,3 +210,39 @@ CloudFormation.
 - Stack Update Fails:
     - The stack automatically rolls back to the previous known working state
     - Ability to see in the log what happened and error messages
+    
+#### ChangeSets
+- When you update a stack,you need to know what changesbefore it happends for greater confidence.
+- ChangeSets won't say if the update will be successful
+
+#### NestedSets
+- Nested stacks are stacks as part of other stacks.
+- They allow you to isolate repeated patterns/components in seperate stack and call them from other stacks
+- Example:
+    - Load Balancer Configuration that is re-used
+    - Security Group Configuration is re-used
+- Nested Stacks are considered as best practice
+- To update a nested stack, always update the parent (root stack)
+
+#### CloudFormation Cross vs Nested Stack
+- Cross Stacks
+    - Helpful when stacks have different lifecycles
+    - Use Outputs Export and Fn:ImportValue
+    - When you need to pass export values to may stacks 
+- Nested Stacks
+    - Helpful when components are re-used
+    - Ex: re-use how to properly configure an Application Load Balancer
+    - Nested stack is only important to the higher level stack (it'snot shared)
+ 
+ #### CloudFormation StackSets
+ - Create, update or delete stacks across multipl accounts and regions with a single operation
+ - Administrator account can create StackSets.
+ - Trusted Accounts can create, update or delete stack instances from StackSets
+ - When you update a stack set, all associated stack instances will be update throughout all instances and regions
+
+ #### CloudFormation Drift
+ - CloudFormation allows you to create infrastructure
+ - But it doesnlt protect you aganist manual configuration changes
+ - How do we know if our resources are drifted? - CloudFormation Drift
+ - Not all resources are supported by default: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift-resource-list.html
+ 
