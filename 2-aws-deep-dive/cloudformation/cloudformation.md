@@ -122,8 +122,8 @@ CloudFormation.
 - They’re very handy to differentiate between different environments (dev vs prod), regions (AWS regions), AMI types, etc
 - All the values are hardcoded within the template
 - We use `Fn::FindInMap` to return a named value from a specific key
-- Syntax : !FindInMap [ MapName , TopLevelKey , SecondLeveleKey ] 
-- Example: !FindInMap [ RegionMap , !Ref "AWS::Region" , 32 ]
+- Syntax : `!FindInMap [ MapName , TopLevelKey , SecondLeveleKey ] `
+- Example: `!FindInMap [ RegionMap , !Ref "AWS::Region" , 32 ]`
 
 #### When would you use Mapping vs. Parameters?
 - Mappings are great when you know in advance all the values that can be taken and that they can be deduced from variables such as
